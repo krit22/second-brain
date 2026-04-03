@@ -66,7 +66,6 @@ app.get("/signin", async (req, res) => {
 app.use(auth_1.auth);
 app.post("/api/v1/content", async (req, res) => {
     const { type, tags, title, link } = req.body;
-    const { currentUserid } = req;
     try {
         //get tags
         const tagObjectIds = [];
@@ -83,7 +82,6 @@ app.post("/api/v1/content", async (req, res) => {
             }
             tagObjectIds.push(tagDocument._id);
         }
-        console.log("Collected all the tag object ids");
         console.log(tagObjectIds);
         await content_1.Content.create({
             link,
@@ -106,7 +104,40 @@ app.post("/api/v1/content", async (req, res) => {
         });
     }
 });
-app.get("/api/v1/content", (req, res) => {
+app.get("/api/v1/content", async (req, res) => {
+    try {
+        const content = await content_1.Content.find({
+            userId: new mongoose_1.default.Types.ObjectId(req.currentUserid)
+        }).lean();
+        if (!content) {
+            res.json({
+                message: "No todos found"
+            });
+            return;
+        }
+        let tagNames = [];
+        console.log("getting tagnames...");
+        for (let document of content) {
+            const tagArray = document.tags;
+            for (let tagObjectId of tagArray) {
+                const tagDocument = await Tags_1.Tag.findById(tagObjectId);
+                const tagName = tagDocument.title.toString();
+                tagNames.push(tagName);
+            }
+            console.log(tagNames);
+            document.tags = tagNames;
+            tagNames = [];
+        }
+        res.json({
+            content
+        });
+    }
+    catch (e) {
+        res.json({
+            message: "some error occured",
+            error: e
+        });
+    }
 });
 app.delete("/api/v1/content", (req, res) => {
 });

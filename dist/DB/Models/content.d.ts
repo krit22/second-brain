@@ -1,24 +1,24 @@
 import mongoose from "mongoose";
 export declare const contentTypes: string[];
 export declare const Content: mongoose.Model<{
-    link: string;
     type: string;
+    link: string;
     title: string;
     tags: mongoose.Types.ObjectId[];
     userId: mongoose.Types.ObjectId;
 }, {}, {}, {
     id: string;
 }, mongoose.Document<unknown, {}, {
-    link: string;
     type: string;
+    link: string;
     title: string;
     tags: mongoose.Types.ObjectId[];
     userId: mongoose.Types.ObjectId;
 }, {
     id: string;
 }, mongoose.DefaultSchemaOptions> & Omit<{
-    link: string;
     type: string;
+    link: string;
     title: string;
     tags: mongoose.Types.ObjectId[];
     userId: mongoose.Types.ObjectId;
@@ -29,22 +29,22 @@ export declare const Content: mongoose.Model<{
 }, "id"> & {
     id: string;
 }, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
-    link: string;
     type: string;
+    link: string;
     title: string;
     tags: mongoose.Types.ObjectId[];
     userId: mongoose.Types.ObjectId;
 }, mongoose.Document<unknown, {}, {
-    link: string;
     type: string;
+    link: string;
     title: string;
     tags: mongoose.Types.ObjectId[];
     userId: mongoose.Types.ObjectId;
 }, {
     id: string;
 }, mongoose.DefaultSchemaOptions> & Omit<{
-    link: string;
     type: string;
+    link: string;
     title: string;
     tags: mongoose.Types.ObjectId[];
     userId: mongoose.Types.ObjectId;
@@ -55,8 +55,8 @@ export declare const Content: mongoose.Model<{
 }, "id"> & {
     id: string;
 }, unknown, {
-    link: string;
     type: string;
+    link: string;
     title: string;
     tags: mongoose.Types.ObjectId[];
     userId: mongoose.Types.ObjectId;
@@ -65,8 +65,8 @@ export declare const Content: mongoose.Model<{
 } & {
     __v: number;
 }>, {
-    link: string;
     type: string;
+    link: string;
     title: string;
     tags: mongoose.Types.ObjectId[];
     userId: mongoose.Types.ObjectId;

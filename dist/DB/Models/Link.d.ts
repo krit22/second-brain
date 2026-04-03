@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 export declare const linkSchema: mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
-    hash: string;
     userId: mongoose.Types.ObjectId;
+    hash: string;
 }, mongoose.Document<unknown, {}, {
-    hash: string;
     userId: mongoose.Types.ObjectId;
+    hash: string;
 }, {
     id: string;
 }, mongoose.DefaultSchemaOptions> & Omit<{
-    hash: string;
     userId: mongoose.Types.ObjectId;
+    hash: string;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -17,8 +17,8 @@ export declare const linkSchema: mongoose.Schema<any, mongoose.Model<any, any, a
 }, "id"> & {
     id: string;
 }, unknown, {
-    hash: string;
     userId: mongoose.Types.ObjectId;
+    hash: string;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
