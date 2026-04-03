@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/DB/Models/User.ts","./src/modules/connect.ts"],"version":"6.0.2"}
+{"root":["./src/index.ts","./src/DB/Models/Link.ts","./src/DB/Models/Tags.ts","./src/DB/Models/User.ts","./src/DB/Models/content.ts","./src/modules/auth.ts","./src/modules/connect.ts","./src/types/express.d.ts"],"version":"6.0.2"}

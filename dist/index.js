@@ -9,6 +9,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const connect_1 = require("./modules/connect");
 const User_1 = require("./DB/Models/User");
+const auth_1 = require("./modules/auth");
+const Tags_1 = require("./DB/Models/Tags");
+const mongoose_1 = __importDefault(require("mongoose"));
+const content_1 = require("./DB/Models/content");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -52,14 +56,55 @@ app.get("/signin", async (req, res) => {
         return;
     }
     const token = jsonwebtoken_1.default.sign({
-        username
+        _user_objectId: currentUser._id
     }, process.env.JWT_SECRET);
     res.json({
         message: "Logged in successfully...",
         token
     });
 });
-app.post("/api/v1/content", (req, res) => {
+app.use(auth_1.auth);
+app.post("/api/v1/content", async (req, res) => {
+    const { type, tags, title, link } = req.body;
+    const { currentUserid } = req;
+    try {
+        //get tags
+        const tagObjectIds = [];
+        for (const tag of tags) {
+            console.log(`checking database for the tag ${tag}`);
+            let tagDocument = await Tags_1.Tag.findOne({
+                title: tag
+            });
+            if (!tagDocument) {
+                console.log(`Could not find the tag ${tag} in the DB. Adding it..`);
+                tagDocument = await Tags_1.Tag.create({
+                    title: tag
+                });
+            }
+            tagObjectIds.push(tagDocument._id);
+        }
+        console.log("Collected all the tag object ids");
+        console.log(tagObjectIds);
+        await content_1.Content.create({
+            link,
+            type,
+            title,
+            tags: tagObjectIds,
+            userId: new mongoose_1.default.Types.ObjectId(req.currentUserid)
+        });
+        res.json({
+            message: "Added your content successfully",
+            user: req.currentUserid,
+            title,
+            tags
+        });
+    }
+    catch (e) {
+        res.json({
+            message: "some error occured",
+            error: e
+        });
+    }
 });
 app.get("/api/v1/content", (req, res) => {
 });
